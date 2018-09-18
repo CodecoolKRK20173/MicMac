@@ -12,6 +12,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,6 +27,8 @@ public class Game extends Pane {
     private List<Pile> foundationPiles = FXCollections.observableArrayList();
     private List<Pile> tableauPiles = FXCollections.observableArrayList();
 
+	//private Button undo;
+	
     private double dragStartX, dragStartY;
     private List<Card> draggedCards = FXCollections.observableArrayList();
 
@@ -99,6 +102,7 @@ public class Game extends Pane {
     public Game() {
         deck = Card.createNewDeck();
         initPiles();
+		initButtons();
         dealCards();
     }
 
@@ -166,15 +170,31 @@ public class Game extends Pane {
         MouseUtil.slideToDest(draggedCards, destPile);
         draggedCards.clear();
     }
+	
+	private void initButtons(){
+	Button undo = new Button("Undo");
+	undo.setLayoutX(0);
+	undo.setLayoutY(0);
+	getChildren().add(undo);
+		
+	Button restart = new Button("Restart");
+	restart.setLayoutX(0);
+	restart.setLayoutY(27);
+	getChildren().add(restart);
+		
+		
+	}
 
 
     private void initPiles() {
+		//Button undo = new Button("Undo");
         stockPile = new Pile(Pile.PileType.STOCK, "Stock", STOCK_GAP);
         stockPile.setBlurredBackground();
         stockPile.setLayoutX(95);
         stockPile.setLayoutY(20);
         stockPile.setOnMouseClicked(stockReverseCardsHandler);
         getChildren().add(stockPile);
+		//getChildren().add(undo);
 
         discardPile = new Pile(Pile.PileType.DISCARD, "Discard", STOCK_GAP);
         discardPile.setBlurredBackground();
