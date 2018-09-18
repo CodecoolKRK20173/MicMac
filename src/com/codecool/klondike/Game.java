@@ -80,7 +80,18 @@ public class Game extends Pane {
         Pile pile = getValidIntersectingPile(card, tableauPiles);
         //TODO
         if (pile != null) {
-            handleValidMove(card, pile);
+            if (pile.isEmpty())
+                if(card.getRank()==13){
+                    System.out.println("Ten stos był pusty, za prawdę.");
+                    handleValidMove(card, pile);
+                }
+                else{
+                    draggedCards.forEach(MouseUtil::slideBack);                            //Pierwsza zmiana tutah
+                       draggedCards = null;
+                }
+            else{
+                handleValidMove(card, pile);
+            }
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards = null;
