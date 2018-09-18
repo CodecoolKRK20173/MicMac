@@ -121,15 +121,19 @@ public class Game extends Pane {
 					return true;
                 }
 		if(!destPile.isEmpty()){
-			if(Card.isOppositeColor(card, destPile.getTopCard()))
-				return true;
-		}
+		if(Card.isOppositeColor(card, destPile.getTopCard())&& destPile.getTopCard().getRank()==card.getRank()+1)
+			return true;
+		
+			
 		
 		
-		return false;
+		
+		
                 
-        
+		}    
+		return false;
     }
+		
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
         Pile result = null;
         for (Pile pile : piles) {
