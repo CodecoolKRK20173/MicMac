@@ -80,22 +80,15 @@ public class Game extends Pane {
         Pile pile = getValidIntersectingPile(card, tableauPiles);
         //TODO
         if (pile != null) {
-            if (pile.isEmpty())
-                if(card.getRank()==13){
-                    System.out.println("Ten stos był pusty, za prawdę.");
-                    handleValidMove(card, pile);
-                }
-                else{
-                    draggedCards.forEach(MouseUtil::slideBack);                            //Pierwsza zmiana tutah
-                       draggedCards = null;
-                }
-            else{
-                handleValidMove(card, pile);
-            }
+            if (isMoveValid(card,pile))
+				handleValidMove(card, pile);
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
-            draggedCards = null;
+            draggedCards.clear();
         }
+		
+		
+		
     };
 
     public boolean isGameWon() {
@@ -122,8 +115,14 @@ public class Game extends Pane {
     }
 
     public boolean isMoveValid(Card card, Pile destPile) {
-        //TODO
-        return true;
+		if (destPile.isEmpty())
+                if(card.getRank()==13){
+                    System.out.println("Ten stos był pusty, za prawdę.");
+					return true;
+                }
+		return false;
+                
+        
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
         Pile result = null;
