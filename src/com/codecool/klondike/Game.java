@@ -120,7 +120,10 @@ public class Game extends Pane {
                     System.out.println("Ten stos był pusty, za prawdę.");
 					return true;
                 }
-		
+		if(!destPile.isEmpty()){
+			if(Card.isOppositeColor(card, destPile.getTopCard()))
+				return true;
+		}
 		
 		
 		return false;

@@ -91,13 +91,14 @@ public class Card extends ImageView {
     public static boolean isOppositeColor(Card card1, Card card2) {
 		
 		
-        if (isCardRed(card1)&& isCardBlack(card2)){
+        if (isCardRed(card1)&& isCardBlack(card2))
 			return true;
-		}
-		 if (isCardRed(card2)&& isCardBlack(card1)){
+		
+		 if (isCardRed(card2)&& isCardBlack(card1))
 			return true;
-		}
-		else false;
+		
+		else 
+			return false;
 		
         
     }
