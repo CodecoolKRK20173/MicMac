@@ -120,6 +120,9 @@ public class Game extends Pane {
                     System.out.println("Ten stos był pusty, za prawdę.");
 					return true;
                 }
+		
+		
+		
 		return false;
                 
         
