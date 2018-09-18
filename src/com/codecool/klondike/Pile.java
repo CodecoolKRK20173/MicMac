@@ -34,15 +34,18 @@ public class Pile extends Pane {
     public double getCardGap() {
         return cardGap;
     }
+	
+	
 
     public ObservableList<Card> getCards() {
         return cards;
     }
 
     public int numOfCards() {
+		
         //TODO
         //tadam
-        return 1;
+        return cards.size();
     }
 
     public boolean isEmpty() {
@@ -50,6 +53,8 @@ public class Pile extends Pane {
     }
 
     public void clear() {
+		for (Card card: cards)
+			cards.remove(card);
         //TODO
     }
 
@@ -74,6 +79,23 @@ public class Pile extends Pane {
         else
             return cards.get(cards.size() - 1);
     }
+	
+	public int getCardIndex(Card card){
+		int i=0;
+		int returned=0;
+		for(Card c : cards){
+			if (cards.get(i).toString().equals(card.toString())){
+				returned=i;
+			}
+		i++;
+				
+		}
+		return returned;
+	}
+	
+	public Card getCardByIndex(int index){
+		return cards.get(index);
+	}
 
     public void setBlurredBackground() {
         setPrefSize(Card.WIDTH, Card.HEIGHT);

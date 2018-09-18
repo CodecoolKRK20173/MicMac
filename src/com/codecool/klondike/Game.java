@@ -63,17 +63,27 @@ public class Game extends Pane {
             return;
         double offsetX = e.getSceneX() - dragStartX;
         double offsetY = e.getSceneY() - dragStartY;
-
+		
+		System.out.println("NIese karte");
+		int size=activePile.numOfCards();
+		//while(card.toString.equals(activePile.get(size).toString))
+		//{}
+		int index=activePile.getCardIndex(card);	
         draggedCards.clear();
-        draggedCards.add(card);
+		for(int i=index; i<activePile.numOfCards();i++)
+        	draggedCards.add(activePile.getCardByIndex(i));
+		//do{
+			
+		//}
+		for(Card x : draggedCards){
+			x.getDropShadow().setRadius(20);
+			x.getDropShadow().setOffsetX(10);
+			x.getDropShadow().setOffsetY(10);
 
-        card.getDropShadow().setRadius(20);
-        card.getDropShadow().setOffsetX(10);
-        card.getDropShadow().setOffsetY(10);
-
-        card.toFront();
-        card.setTranslateX(offsetX);
-        card.setTranslateY(offsetY);
+			x.toFront();
+			x.setTranslateX(offsetX);
+			x.setTranslateY(offsetY);
+		}
     };
 
     private EventHandler<MouseEvent> onMouseReleasedHandler = e -> {
@@ -135,7 +145,7 @@ public class Game extends Pane {
 		
                 
 		}    
-		return false;
+		return true; // ZMIENIĆ NA FALSE!!!
     }
 		
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
