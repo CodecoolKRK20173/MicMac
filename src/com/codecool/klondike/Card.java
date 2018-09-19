@@ -96,9 +96,9 @@ public class Card extends ImageView {
 		}
 		 if (isCardRed(card2)&& isCardBlack(card1)){
 			return true;
-		}
-		else false;
-		
+		} else {
+            return false;
+        }
         
     }
 
@@ -113,6 +113,7 @@ public class Card extends ImageView {
                 result.add(new Card(suit, rank, true));
             }
         }
+        // result = Collections.shuffle(result);
         return result;
     }
 
