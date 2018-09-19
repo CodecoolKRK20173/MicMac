@@ -26,24 +26,42 @@ public class Game extends Pane {
     private List<Pile> foundationPiles = FXCollections.observableArrayList();
     private List<Pile> tableauPiles = FXCollections.observableArrayList();
 
-	//private Button undo;
+	private Boolean variant=false;
 	
     private double dragStartX, dragStartY;
     private List<Card> draggedCards = FXCollections.observableArrayList();
 
+	private static double DISCARD_GAP = 1;
     private static double STOCK_GAP = 1;
     private static double FOUNDATION_GAP = 0;
     private static double TABLEAU_GAP = 30;
 
 
     private EventHandler<MouseEvent> onMouseClickedHandler = e -> {
+		int numerOfCards;
         Card card = (Card) e.getSource();
+		if (this.variant==true){
+			numerOfCards=2;
+			System.out.println("Jestem w ifie");
+			//discardPile.getTopCard().setLayoutX(getLayoutX()+170);
+		}
+		else{
+			numerOfCards=0;
+			System.out.println("Jestem w elsie");
+		}
         if (card.getContainingPile().getPileType() == Pile.PileType.STOCK) {
-            card.moveToPile(discardPile);
-            card.flip();
-            card.setMouseTransparent(false);
-            System.out.println("Placed " + card + " to the waste.");
+			card=card.getContainingPile().getCardByIndex(0);
+			for(int i=0; i<=numerOfCards; i++){
+				if(!stockPile.isEmpty()){
+					card.getContainingPile().getTopCard().flip();
+					card.getContainingPile().getTopCard().moveToPile(discardPile);
+					card.getContainingPile().getTopCard().setMouseTransparent(false);
+					System.out.println("Placed " + card + " to the waste. Totu, tak");
+				}
+			}
         }
+		
+		
     };
 
     private EventHandler<MouseEvent> stockReverseCardsHandler = e -> {
@@ -68,9 +86,13 @@ public class Game extends Pane {
 		//{}
 		int index=activePile.getCardIndex(card);	
         draggedCards.clear();
+		if(!activePile.getPileType().equals(Pile.PileType.DISCARD))
+		{
 		for(int i=index; i<activePile.numOfCards();i++)
         	draggedCards.add(activePile.getCardByIndex(i));
-		//do{
+		}//do{
+		else
+			draggedCards.add(activePile.getTopCard());
 			
 		//}
 		for(Card x : draggedCards){
@@ -206,7 +228,27 @@ public class Game extends Pane {
 	restart.setLayoutY(27);
 	getChildren().add(restart);
 		
+	Button changeVariant = new Button("Change Variant");
+	changeVariant.setLayoutX(0);
+	changeVariant.setLayoutY(54);
+	getChildren().add(changeVariant);
 		
+		
+		
+	changeVariant.setOnAction( event ->{
+		if (this.variant==false){
+			this.variant=true;
+		System.out.println("Wariant to false");
+
+		}
+		else{
+			this.variant=false;
+		System.out.println("Wariant to true");
+		}
+		System.out.println("Czy aby napewno Cie klikłem?");
+		
+		
+	});
 	
 	
 	undo.setOnAction( event ->{
@@ -266,7 +308,7 @@ public class Game extends Pane {
         getChildren().add(stockPile);
 		//getChildren().add(undo);
 
-        discardPile = new Pile(Pile.PileType.DISCARD, "Discard", STOCK_GAP);
+        discardPile = new Pile(Pile.PileType.DISCARD, "Discard", DISCARD_GAP);
         discardPile.setBlurredBackground();
         discardPile.setLayoutX(285);
         discardPile.setLayoutY(20);
