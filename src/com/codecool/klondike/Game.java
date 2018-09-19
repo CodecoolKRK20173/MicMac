@@ -208,8 +208,18 @@ public class Game extends Pane {
 	getChildren().add(restart);
 		
 		
+	
+	
+	undo.setOnAction( event ->{
+	System.out.println("Undo: Klikłeś mie");
+	});
+	
+	restart.setOnAction(event->{
+	System.out.println("Restart: Klikłeś mie");
+	});
+		
+	
 	}
-
 
     private void initPiles() {
 		//Button undo = new Button("Undo");
