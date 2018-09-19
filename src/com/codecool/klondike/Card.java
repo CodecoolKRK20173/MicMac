@@ -89,16 +89,15 @@ public class Card extends ImageView {
 	}
 	
     public static boolean isOppositeColor(Card card1, Card card2) {
-		
-		
-        if (isCardRed(card1)&& isCardBlack(card2)){
+		 if (isCardRed(card1)&& isCardBlack(card2))
 			return true;
-		}
-		 if (isCardRed(card2)&& isCardBlack(card1)){
+		
+		 if (isCardRed(card2)&& isCardBlack(card1))
 			return true;
-		} else {
-            return false;
-        }
+		
+		else 
+			return false;
+		
         
     }
 
@@ -113,7 +112,7 @@ public class Card extends ImageView {
                 result.add(new Card(suit, rank, true));
             }
         }
-        // result = Collections.shuffle(result);
+        Collections.shuffle(result);
         return result;
     }
 
