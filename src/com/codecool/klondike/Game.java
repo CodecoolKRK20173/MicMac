@@ -194,6 +194,8 @@ public class Game extends Pane {
 	
 	restart.setOnAction(event->{
 	System.out.println("Restart: Klikłeś mie");
+	//this.
+		
 	});
 		
 	

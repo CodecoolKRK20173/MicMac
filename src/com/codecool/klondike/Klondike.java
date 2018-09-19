@@ -11,7 +11,7 @@ public class Klondike extends Application {
     private static final double WINDOW_HEIGHT = 900;
 
     public static void main(String[] args) {
-        launch(args);
+       launch(args);
     }
 
     @Override
