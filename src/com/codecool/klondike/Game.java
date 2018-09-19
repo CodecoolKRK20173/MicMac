@@ -129,21 +129,14 @@ public class Game extends Pane {
     }
 
     public boolean isMoveValid(Card card, Pile destPile) {
-		if (destPile.isEmpty())
+		if (destPile.isEmpty() && destPile.getPileType().equals(Pile.PileType.TABLEAU))
                 if(card.getRank()==13){
                     System.out.println("Ten stos był pusty, za prawdę.");
 					return true;
                 }
-		if(!destPile.isEmpty()){
-		if(Card.isOppositeColor(card, destPile.getTopCard())&& destPile.getTopCard().getRank()==card.getRank()+1)
-			return true;
-		
-			
-		
-		
-		
-		
-                
+		if(!destPile.isEmpty() && destPile.getPileType().equals(Pile.PileType.TABLEAU)){
+			if(Card.isOppositeColor(card, destPile.getTopCard())&& destPile.getTopCard().getRank()==card.getRank()+1)
+				return true;
 		}    
 		return false; // ZMIENIĆ NA FALSE!!!
     }
@@ -193,8 +186,18 @@ public class Game extends Pane {
 	getChildren().add(restart);
 		
 		
+	
+	
+	undo.setOnAction( event ->{
+	System.out.println("Undo: Klikłeś mie");
+	});
+	
+	restart.setOnAction(event->{
+	System.out.println("Restart: Klikłeś mie");
+	});
+		
+	
 	}
-
 
     private void initPiles() {
 		//Button undo = new Button("Undo");

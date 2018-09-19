@@ -1,4 +1,5 @@
 package com.codecool.klondike;
+import java.util.*;
 
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -112,7 +113,7 @@ public class Card extends ImageView {
                 result.add(new Card(suit, rank, true));
             }
         }
-        Collections.shuffle(result);
+		Collections.shuffle(result);
         return result;
     }
 
