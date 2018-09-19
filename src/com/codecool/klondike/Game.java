@@ -14,9 +14,8 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
 
 public class Game extends Pane {
 
@@ -64,7 +63,6 @@ public class Game extends Pane {
         double offsetX = e.getSceneX() - dragStartX;
         double offsetY = e.getSceneY() - dragStartY;
 		
-		System.out.println("NIese karte");
 		int size=activePile.numOfCards();
 		//while(card.toString.equals(activePile.get(size).toString))
 		//{}
@@ -160,7 +158,7 @@ public class Game extends Pane {
             }
         }  
 
-		return false; // ZMIENIĆ NA FALSE!!!
+		return true; // ZMIENIĆ NA FALSE!!!
     }
 		
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
@@ -194,6 +192,7 @@ public class Game extends Pane {
         System.out.println(msg);
         MouseUtil.slideToDest(draggedCards, destPile);
         draggedCards.clear();
+		
     }
 	
 	private void initButtons(){
@@ -211,12 +210,46 @@ public class Game extends Pane {
 	
 	
 	undo.setOnAction( event ->{
-	System.out.println("Undo: Klikłeś mie");
 	});
 	
 	restart.setOnAction(event->{
-	System.out.println("Restart: Klikłeś mie");
-	//this.
+		
+		
+			
+		for(Pile pile : foundationPiles){
+			System.out.println(pile.numOfCards());
+			if(!pile.isEmpty()){
+				for(int i=pile.numOfCards(); i>0;i--){
+					pile.getCardByIndex(i-1).flip(); 
+					pile.getCardByIndex(i-1).moveToPile(stockPile);
+				
+				}
+			}
+			
+		}
+		for(Pile pile : tableauPiles){
+			System.out.println(pile.numOfCards());
+			if(!pile.isEmpty()){
+				for(int i=pile.numOfCards(); i>0;i--){
+					pile.getCardByIndex(i-1).flip(); 
+					pile.getCardByIndex(i-1).moveToPile(stockPile);
+				
+				}
+			}
+			
+		}
+		for(int i=discardPile.numOfCards();i>0;i--){
+			discardPile.getCardByIndex(i-1).flip();
+			discardPile.getCardByIndex(i-1).moveToPile(stockPile);
+			
+		}
+		Collections.shuffle(stockPile.getCards());
+		for(int i=stockPile.numOfCards();i>0;i--)
+			stockPile.getCardByIndex(i-1).moveToPile(discardPile);
+		for(int i=discardPile.numOfCards();i>0;i--)
+			discardPile.getCardByIndex(i-1).moveToPile(stockPile);
+	
+	
 		
 	});
 		
