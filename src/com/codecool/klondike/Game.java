@@ -91,10 +91,16 @@ public class Game extends Pane {
             return;
         Card card = (Card) e.getSource();
         Pile pile = getValidIntersectingPile(card, tableauPiles);
+        Pile pileFoun = getValidIntersectingPile(card, foundationPiles);
+        
         //TODO
         if (pile != null) {
             if (isMoveValid(card,pile))
-				handleValidMove(card, pile);
+                handleValidMove(card, pile);
+        }
+        else if(pileFoun != null) {
+            if (isMoveValid(card,pileFoun))
+                handleValidMove(card, pileFoun);
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards.clear();
@@ -129,22 +135,31 @@ public class Game extends Pane {
     }
 
     public boolean isMoveValid(Card card, Pile destPile) {
-		if (destPile.isEmpty())
+		if (destPile.isEmpty() && destPile.getPileType().equals(Pile.PileType.TABLEAU))
                 if(card.getRank()==13){
                     System.out.println("Ten stos był pusty, za prawdę.");
 					return true;
                 }
-		if(!destPile.isEmpty()){
-		if(Card.isOppositeColor(card, destPile.getTopCard())&& destPile.getTopCard().getRank()==card.getRank()+1)
-			return true;
-		
-			
-		
-		
-		
-		
-                
-		}    
+        
+		if(!destPile.isEmpty()&& destPile.getPileType().equals(Pile.PileType.TABLEAU)){
+		    if(Card.isOppositeColor(card, destPile.getTopCard())&& destPile.getTopCard().getRank()==card.getRank()+1)
+			    return true; 
+        }  
+
+        if (destPile.isEmpty() && destPile.getPileType().equals(Pile.PileType.FOUNDATION)){
+            if(card.getRank() == 1){
+                System.out.println("Aye, aye, oh, shake your foundations.");
+                return true;
+            }
+        } 
+        if(!destPile.isEmpty()&& destPile.getPileType().equals(Pile.PileType.FOUNDATION)){
+            Card card1 = card;
+            Card card2 = destPile.getTopCard();
+            if(Card.isSameSuit(card1, card2) && card2.getRank()==card1.getRank()-1){
+                return true; 
+            }
+        }  
+
 		return false; // ZMIENIĆ NA FALSE!!!
     }
 		
