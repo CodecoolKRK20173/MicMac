@@ -14,6 +14,11 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 
 import java.util.*;
 
@@ -40,6 +45,19 @@ public class Game extends Pane {
     private static double STOCK_DISC_Y_POS = 20;
     private static double DISCARD_X_POS = 285;
 
+	
+	 public boolean isGameWon() {
+        int cardSum = 0;
+        for(Pile pile : foundationPiles) {
+            cardSum += pile.numOfCards();
+        }
+		System.out.println(cardSum);
+        if(cardSum == 51){
+            return true;
+        }
+        return false;
+    }
+	
 
     private EventHandler<MouseEvent> onMouseClickedHandler = e -> {
 		int numerOfCards;
@@ -76,9 +94,15 @@ public class Game extends Pane {
         dragStartX = e.getSceneX();
         dragStartY = e.getSceneY();
         flipTops();
+		
+		
     };
 
     private EventHandler<MouseEvent> onMouseDraggedHandler = e -> {
+		
+		
+		
+		
         Card card = (Card) e.getSource();
         Pile activePile = card.getContainingPile();
         if (!isDragable(card)){
@@ -148,21 +172,10 @@ public class Game extends Pane {
             draggedCards.clear();
         }
         flipTops();
-        // if(isGameWon){
-        //     youWon();
-        // }
+         
     };
 
-    public boolean isGameWon() {
-        int cardSum = 0;
-        for(Pile pile : foundationPiles) {
-            cardSum += pile.numOfCards();
-        }
-        if(cardSum == 52){
-            return true;
-        }
-        return false;
-    }
+   
 
     public Game() {
         deck = Card.createNewDeck();
@@ -263,9 +276,41 @@ public class Game extends Pane {
         for(Card cardDrag : draggedCards){
             card.getContainingPile().getCards().remove(cardDrag);
         }
+		
+		if(isGameWon()){
+			Alert alert=initAllert();
+			System.out.println("YOU WON");
+			initAllert();
+			alert.showAndWait().ifPresent(response ->{
+				if(response==ButtonType.OK){
+					System.exit(0);
+				}
+			});
+			
+			
+         }
         draggedCards.clear();
 		
     }
+	
+	private void initWonButton(){
+	Button youWon = new Button("YOU WON!!!");
+	youWon.setLayoutX(650);
+	youWon.setLayoutY(400);
+	getChildren().add(youWon);
+	youWon.setOnAction( event ->{
+	
+				System.exit(0);
+	});
+		
+	//youWon.setVisible(false);
+	}
+	
+	private Alert initAllert(){
+	Alert alert = new Alert(AlertType.ERROR,"YOU WON!!!");
+		return alert;
+	}
+	
 	
 	private void initButtons(){
 	Button undo = new Button("Undo");
@@ -287,7 +332,9 @@ public class Game extends Pane {
 	youWon.setLayoutX(650);
 	youWon.setLayoutY(400);
 	getChildren().add(youWon);
+	youWon.setVisible(false);
 		
+	
 		
 		
 	changeVariant.setOnAction( event ->{
