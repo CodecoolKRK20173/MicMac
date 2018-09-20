@@ -64,6 +64,7 @@ public class Card extends ImageView {
     }
 
     public void moveToPile(Pile destPile) {
+		System.out.println("card "+this.toString()+" was moved to "+destPile.getName());
         this.getContainingPile().getCards().remove(this);
         destPile.addCard(this);
     }
