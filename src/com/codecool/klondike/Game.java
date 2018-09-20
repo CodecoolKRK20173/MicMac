@@ -310,7 +310,9 @@ public class Game extends Pane {
 			System.out.println(pile.numOfCards());
 			if(!pile.isEmpty()){
 				for(int i=pile.numOfCards(); i>0;i--){
-					pile.getCardByIndex(i-1).flip(); 
+                    if(!pile.getCardByIndex(i-1).isFaceDown())
+                        pile.getCardByIndex(i-1).flip(); 
+                    
 					pile.getCardByIndex(i-1).moveToPile(stockPile);
 				
 				}
@@ -327,8 +329,14 @@ public class Game extends Pane {
 			stockPile.getCardByIndex(i-1).moveToPile(discardPile);
 		for(int i=discardPile.numOfCards();i>0;i--)
 			discardPile.getCardByIndex(i-1).moveToPile(stockPile);
-	
-	
+           
+         for(int i = 0; i < 7; i++){
+             for(int j = 0; j < i+1; j++){
+                 Card theCard = stockPile.getCards().remove(0);
+                 tableauPiles.get(6-j).addCard(theCard);
+             }
+         }
+         flipTops();
 		
 	});
 		
