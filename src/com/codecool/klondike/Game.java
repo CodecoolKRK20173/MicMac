@@ -219,7 +219,7 @@ public class Game extends Pane {
             }
         }
 
-        return false; // ZMIENIĆ NA FALSE!!!
+        return true; // ZMIENIĆ NA FALSE!!!
     }
 
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
@@ -272,6 +272,11 @@ public class Game extends Pane {
 	changeVariant.setLayoutX(0);
 	changeVariant.setLayoutY(54);
 	getChildren().add(changeVariant);
+		
+	Button youWon = new Button("YOU WON!!!");
+	youWon.setLayoutX(650);
+	youWon.setLayoutY(400);
+	getChildren().add(youWon);
 		
 		
 		
