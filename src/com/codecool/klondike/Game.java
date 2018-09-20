@@ -148,10 +148,19 @@ public class Game extends Pane {
             draggedCards.clear();
         }
         flipTops();
+        // if(isGameWon){
+        //     youWon();
+        // }
     };
 
     public boolean isGameWon() {
-        // TODO
+        int cardSum = 0;
+        for(Pile pile : foundationPiles) {
+            cardSum += pile.numOfCards();
+        }
+        if(cardSum == 52){
+            return true;
+        }
         return false;
     }
 
@@ -183,6 +192,7 @@ public class Game extends Pane {
 				//pileCards.getTopCard().moveToPile(stockPile);
 				pileCards.get(i).moveToPile(stockPile);
             }
+    
             // stockPile.setLayoutX(STOCK_X_POS);
             // stockPile.setLayoutY(STOCK_DISC_Y_POS);
 		
