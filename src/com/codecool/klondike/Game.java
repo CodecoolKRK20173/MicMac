@@ -179,7 +179,9 @@ public class Game extends Pane {
                     thrownCard.flip();
                 }
                 stockPile.addCard(thrownCard);
+                // thrownCard.moveToPile(stockPile);
             }
+    
             // stockPile.setLayoutX(STOCK_X_POS);
             // stockPile.setLayoutY(STOCK_DISC_Y_POS);
 		
