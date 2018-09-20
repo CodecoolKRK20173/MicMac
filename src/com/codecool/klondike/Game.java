@@ -172,13 +172,16 @@ public class Game extends Pane {
     public void refillStockFromDiscard() {
         
         ObservableList<Card> pileCards = discardPile.getCards();
+		ObservableList<Card> pileCards2 = stockPile.getCards();
             
-            Collections.reverse(pileCards);
-            for(Card thrownCard : pileCards){
-                if (!thrownCard.isFaceDown()){
-                    thrownCard.flip();
+           // Collections.reverse(pileCards);
+            for(int i=pileCards.size()-1; i>=0; i--){
+                if (!pileCards.get(i).isFaceDown()){
+                    pileCards.get(i).flip();
                 }
-                stockPile.addCard(thrownCard);
+               // stockPile.addCard(thrownCard);
+				//pileCards.getTopCard().moveToPile(stockPile);
+				pileCards.get(i).moveToPile(stockPile);
             }
             // stockPile.setLayoutX(STOCK_X_POS);
             // stockPile.setLayoutY(STOCK_DISC_Y_POS);
