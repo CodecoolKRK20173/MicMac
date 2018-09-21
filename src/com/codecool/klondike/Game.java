@@ -52,7 +52,7 @@ public class Game extends Pane {
             cardSum += pile.numOfCards();
         }
 		System.out.println(cardSum);
-        if(cardSum == 51){
+        if(cardSum == 3){
             return true;
         }
         return false;
