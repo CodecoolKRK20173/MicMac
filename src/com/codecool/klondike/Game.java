@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
 
 import java.util.*;
 
@@ -44,6 +45,7 @@ public class Game extends Pane {
     private EventHandler<MouseEvent> onMouseClickedHandler = e -> {
 		int numerOfCards;
         Card card = (Card) e.getSource();
+        System.out.println(e.getClickCount());
 		if (this.variant==true){
 			numerOfCards=2;
 			System.out.println("Jestem w ifie");
@@ -64,9 +66,49 @@ public class Game extends Pane {
 				}
 			}
         }
+        if(e.getClickCount() == 2){
+            for (Pile destPile : foundationPiles){
+                if(!destPile.isEmpty()){
+
+                    Card card2 = destPile.getTopCard();
+
+                    if(isMoveValid(card, destPile)){
+                        if(Card.isSameSuit(card, card2) && card2.getRank() == card.getRank()-1){
+                            card.moveToPile(destPile);
+                        }
+                    }
+                }
+            }
+        }
 		flipTops();
 		
     };
+
+    // private EventHandler<MouseEvent> onMouseDoubleClickHandler = e -> {
+    //     // MouseEvent mouseEvent = new MouseEvent();
+    //     Card card1 = (Card) e.getSource();
+
+    //         System.out.println(e.getClickCount());
+    //         if(e.getClickCount() == 2){
+    //             System.out.println("Double clicked");
+    //             for (Pile destPile : foundationPiles){
+                    
+    //                 Card card2 = destPile.getTopCard();
+
+    //                 if(isMoveValid(card1, destPile)){
+    //                     if(Card.isSameSuit(card1, card2) && card2.getRank() == card1.getRank()-1){
+    //                         card1.moveToPile(destPile);
+    //                     }
+    //                 }
+    //             }
+
+    //     }
+    //     // destPile.getPileType().equals(Pile.PileType.FOUNDATION)) {
+    //     //     Card card1 = card;
+    //     //     Card card2 = destPile.getTopCard();
+    //     //     if (Card.isSameSuit(card1, card2) && card2.getRank() == card1.getRank() - 1) {
+    //     //         return true;
+    // };
 
     private EventHandler<MouseEvent> stockReverseCardsHandler = e -> {
         refillStockFromDiscard();
