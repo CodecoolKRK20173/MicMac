@@ -84,32 +84,6 @@ public class Game extends Pane {
 		
     };
 
-    // private EventHandler<MouseEvent> onMouseDoubleClickHandler = e -> {
-    //     // MouseEvent mouseEvent = new MouseEvent();
-    //     Card card1 = (Card) e.getSource();
-
-    //         System.out.println(e.getClickCount());
-    //         if(e.getClickCount() == 2){
-    //             System.out.println("Double clicked");
-    //             for (Pile destPile : foundationPiles){
-                    
-    //                 Card card2 = destPile.getTopCard();
-
-    //                 if(isMoveValid(card1, destPile)){
-    //                     if(Card.isSameSuit(card1, card2) && card2.getRank() == card1.getRank()-1){
-    //                         card1.moveToPile(destPile);
-    //                     }
-    //                 }
-    //             }
-
-    //     }
-    //     // destPile.getPileType().equals(Pile.PileType.FOUNDATION)) {
-    //     //     Card card1 = card;
-    //     //     Card card2 = destPile.getTopCard();
-    //     //     if (Card.isSameSuit(card1, card2) && card2.getRank() == card1.getRank() - 1) {
-    //     //         return true;
-    // };
-
     private EventHandler<MouseEvent> stockReverseCardsHandler = e -> {
         refillStockFromDiscard();
     };
